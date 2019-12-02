@@ -1,0 +1,183 @@
+﻿@using WorldCup.Controllers
+@using WorldCup.Models
+@using System;
+@using System.Collections.Generic;
+
+@{
+    ViewData["Title"] = "Que os Jogos Comecem.";
+    var Pais= new List<string>();
+    var Grupos= new List<int>();
+    var Forca= new List<int>();
+    var Posicao = new List<int>();
+    var Oitavas = new List<int>();
+    var Quartas = new List<int>();
+    var Semi = new List<int>();
+    var Final = new List<int>();
+    var Winner = new List<int>();
+
+    int Partida(int TeamA, int TeamB){
+        if (Forca[TeamA] > Forca[TeamB]){ return TeamA; }
+        else if (Forca[TeamA] < Forca[TeamB]) { return TeamB; }
+        else {return TeamA;}
+    }
+
+    foreach (var each in ViewBag.Id){
+        Posicao.Add(@each);
+    }
+
+    foreach (var each in ViewBag.Times){  
+        Pais.Add(@each.Nome);
+        Forca.Add(@each.Forca);
+    }
+    for (int i=0; i < 32; i+=1){
+        Grupos.Add(Posicao.IndexOf(i));
+    }
+    for (int i=0; i < 32; i+=2){
+        var result = Partida(Grupos[i], Grupos[i+1]);
+        Oitavas.Add(result);
+    }
+    for (int i=0; i < 16; i+=2){
+        var result = Partida(Oitavas[i], Oitavas[i+1]);
+        Quartas.Add(result);
+    }
+    for (int i=0; i < 8; i+=2){
+        var result = Partida(Quartas[i], Quartas[i+1]);
+        Semi.Add(result);
+    }
+    for (int i=0; i < 4; i+=2){
+        var result = Partida(Semi[i], Semi[i+1]);
+        Final.Add(result);
+    }
+    for (int i=0; i < 2; i+=2){
+        var result = Partida(Final[i], Final[i+1]);
+        Winner.Add(result);
+    }
+}
+
+<section class="jumbotron text-center">
+    <p class="lead text-muted">Abaixo nos temos os times que participaram do torneio, veja as partidas e click no vencedor.</p>
+    <div class="container">
+        <h2>Grupos: </h2>
+        <div class="row bg-white border box-shadow align-left">
+                <div class="col-3 text-center"><b>GrupoA</b></div>
+                <div class="col-3 text-center"><b>GrupoB</b></div>
+                <div class="col-3 text-center"><b>GrupoC</b></div>
+                <div class="col-3 text-center"><b>GrupoD</b></div>
+                <div class="col-1 text-center"></div>
+            @foreach (var each in Grupos)
+                { 
+                    <div class="col-2 text-left">
+                        <li>@Pais[each]</li>
+                    </div>
+                    <div class="col-1 text-left"></div>
+                }
+        </div>
+    </div>
+</section>
+
+<!-- Oitavas -->
+<div>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample1"
+    aria-expanded="false" aria-controls="collapseExample1">
+    <b>Oitavas de Final</b>
+  </button>
+</div>
+
+<section class="jumbotron text-center">
+    <div class="collapse" id="collapseExample1">
+        <h2>Partidas das Oitavas de Final </h2>
+        <div class="row bg-white border box-shadow align-left">
+            @foreach (var each in Oitavas)
+                {   <div class="col-3 text-left">
+                        <li>@Pais[each]</li>
+                    </div>
+                }
+        </div>
+    </div>
+</section>
+<!-- / Oitavas -->
+
+<!-- Quartas -->
+<div>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample2"
+    aria-expanded="false" aria-controls="collapseExample2">
+    <b>Quartas de Final</b>
+  </button>
+</div>
+
+<section class="jumbotron text-center">
+    <div class="collapse" id="collapseExample2">
+        <h2>Partidas das Quartas de Final</h2>
+        <div class="row bg-white border box-shadow align-left">
+            @foreach (var each in Quartas)
+                {   <div class="col-3 text-left">
+                        <li>@Pais[each]</li>
+                    </div>
+                }
+        </div>
+    </div>
+</section>
+<!-- / Quartas -->
+
+<!-- Semi -->
+<div>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample3"
+    aria-expanded="false" aria-controls="collapseExample3">
+    <b>Semi-Final</b>
+  </button>
+</div>
+
+<section class="jumbotron text-center">
+    <div class="collapse" id="collapseExample3">
+        <h2>Partidas da Semi-final </h2>
+        <div class="row bg-white border box-shadow align-left">
+            @foreach (var each in Semi)
+                {   <div class="col-3 text-left">
+                        <li>@Pais[each]</li>
+                    </div>
+                }
+        </div>
+    </div>
+</section>
+<!-- / Semi -->
+
+<!-- Final -->
+<div>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample4"
+    aria-expanded="false" aria-controls="collapseExample4">
+    <b>A grande Final</b>
+  </button>
+</div>
+
+<section class="jumbotron text-center">
+    <div class="collapse" id="collapseExample4">
+        <h2>A partida Final </h2>
+        <div class="row bg-white border box-shadow align-center">
+            @foreach (var each in Final)
+                {   <div class="col-6 text-center">
+                        <li>@Pais[each]</li>
+                    </div>
+                }
+        </div>
+    <!-- The Winners -->
+    <div class="mt-5 mt-3 text-center">
+    <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseExample5"
+        aria-expanded="false" aria-controls="collapseExample5">
+        <b>Veja quem foi o vencedor</b>
+    </button>
+    </div>
+        <div class="collapse" id="collapseExample5">
+            <h2>O Vencedor</h2>
+            <div class="row bg-white border box-shadow align-center">
+                @foreach (var each in Winner)
+                {   
+                    <ol class="col-12 text-center">
+                        <b>@Pais[each]</b>
+                    </ol>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- / Final -->

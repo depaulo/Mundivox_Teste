@@ -1,0 +1,27 @@
+﻿@using System;
+@using WorldCup.Models
+@model Microsoft.EntityFrameworkCore.DbSet<Time>
+
+@{
+    ViewData["Title"] = "Inicio";
+    foreach(var each in Model){//Mostrando o acesso ao banco de dados, infelizmente nao tive tempo para implementa-lo
+        Console.Write(@each.Nome);
+        Console.WriteLine(@each.Forca);
+    }
+}
+<section class="jubotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Bom dia, bem vindo a Copa do Mundo!</h1>
+        <p>Os times que participaram do torneio estao abaixo. Porfavor click no botao comecar o torneio.</p>
+        <h2>Equipes: </h2>
+        <div class="row bg-white border box-shadow align-left">
+            @foreach (var each in ViewBag.Times)
+            {   
+                <div class="col-2 text-left">
+                    @each.Nome
+                </div>
+            }
+        </div>
+    </div>
+
+</section>
