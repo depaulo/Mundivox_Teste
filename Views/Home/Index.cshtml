@@ -1,12 +1,15 @@
 ﻿@using System;
 @using WorldCup.Models
-@model Microsoft.EntityFrameworkCore.DbSet<Time>
 
 @{
     ViewData["Title"] = "Inicio";
-    foreach(var each in Model){//Mostrando o acesso ao banco de dados, infelizmente nao tive tempo para implementa-lo
-        Console.Write(@each.Nome);
-        Console.WriteLine(@each.Forca);
+    var Pais= new List<string>();
+    var Grupos= new List<string>();
+    foreach (var each in ViewBag.Times){  
+        Pais.Add(@each.Nome);
+    }
+    for (int i=0; i < 32; i+=1){
+        Grupos.Add(Pais[i]);
     }
 }
 <section class="jubotron text-center">
@@ -15,10 +18,10 @@
         <p>Os times que participaram do torneio estao abaixo. Porfavor click no botao comecar o torneio.</p>
         <h2>Equipes: </h2>
         <div class="row bg-white border box-shadow align-left">
-            @foreach (var each in ViewBag.Times)
+            @foreach (var each in Grupos)
             {   
                 <div class="col-2 text-left">
-                    @each.Nome
+                    @each
                 </div>
             }
         </div>
