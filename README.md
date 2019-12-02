@@ -5,4 +5,4 @@ Caso voce apague o banco de dados, lembre-se de esvrever utilizar os comandos:
 1)dotnet ef migrations add InitialCreate
 2)dotnet ef database update
 
-O banco de dados é criado, e tambem eu demonstro que ele pode ser acessado pelo view, mas o programa nao utiliza o banco de dados porque eu nao tive tempo o suficiente para alterar a logica. (Inicialmente eu tive problemas com a criacao do banco de dados e fiz o programa sem)
+Programa Usa o banco de dados, mas o banco de dados esta sendo criado e novos valores sao inseridos a cada inicializacao do programa, precisa colocar restricoes no nome, para que aceite cada pais apenas uma vez. (Inicialmente eu tive problemas com a criacao do banco de dados e fiz o programa sem, a logica precisa ser melhor ajustada para utilizar as funcionalidades do banco de dados)
